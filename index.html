@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Maira Escapes</title>
+  <!-- Google Fonts & Font Awesome (CDN) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #07111F;
+      color: #F5F0E8;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    /* reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    /* ---------- CUSTOM SCROLL ---------- */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0D1B2A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF72;
+      border-radius: 12px;
+    }
+    /* ---------- UTILITY ---------- */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #D4AF72;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1.1rem;
+      color: rgba(245, 240, 232, 0.7);
+      max-width: 600px;
+      font-weight: 300;
+    }
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: #D4AF72;
+      margin: 0.8rem 0 1.2rem 0;
+    }
+    /* ---------- GLASS ---------- */
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 114, 0.15);
+      border-radius: 16px;
+    }
+    /* ---------- BUTTONS ---------- */
+    .btn-primary {
+      display: inline-block;
+      background: #D4AF72;
+      color: #07111F;
+      font-weight: 600;
+      padding: 0.8rem 2.2rem;
+      border-radius: 40px;
+      border: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary:hover {
+      background: #e4c48a;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 30px -10px rgba(212, 175, 114, 0.3);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+      transform: rotate(25deg) translateX(-100%);
+      transition: 0.6s;
+    }
+    .btn-primary:hover::after {
+      transform: rotate(25deg) translateX(100%);
+    }
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #F5F0E8;
+      border: 1px solid rgba(212, 175, 114, 0.4);
+      padding: 0.8rem 2.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+      background: rgba(212, 175, 114, 0.08);
+      border-color: #D4AF72;
+    }
+    /* ---------- HEADER / NAV ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.4s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+    }
+    header.scrolled {
+      background: rgba(7, 17, 31, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      padding: 0.7rem 2rem;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #F5F0E8;
+    }
+    .logo span {
+      color: #D4AF72;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      color: rgba(245, 240, 232, 0.8);
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: #D4AF72;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover {
+      color: #F5F0E8;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-right i {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 232, 0.8);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .nav-right i:hover {
+      color: #D4AF72;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 26px;
+      height: 2px;
+      background: #F5F0E8;
+      transition: 0.3s;
+      border-radius: 4px;
+    }
+    /* mobile nav overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(7, 17, 31, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-overlay a {
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      color: #F5F0E8;
+      margin: 0.8rem 0;
+      transition: color 0.3s;
+    }
+    .mobile-overlay a:hover {
+      color: #D4AF72;
+    }
+    .mobile-overlay .close-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 2.5rem;
+      cursor: pointer;
+      color: #F5F0E8;
+    }
+    /* ---------- HERO ---------- */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover no-repeat;
+      transform: scale(1.1);
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(7,17,31,0.7) 0%, rgba(13,27,42,0.5) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 1.5rem;
+      transform: translateY(0);
+      transition: transform 0.1s ease-out;
+    }
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 5px;
+      color: #D4AF72;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 12vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: #F5F0E8;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 i {
+      font-style: italic;
+      font-weight: 400;
+      color: #D4AF72;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 232, 0.75);
+      max-width: 600px;
+      margin: 0 auto 2.2rem;
+      font-weight: 300;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      color: rgba(245, 240, 232, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      z-index: 2;
+    }
+    .scroll-indicator .line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, #D4AF72, transparent);
+      animation: scrollLine 2s infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
+    /* ---------- DESTINATIONS ---------- */
+    .destinations {
+      padding: 6rem 0;
+      background: #0D1B2A;
+    }
+    .dest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(212, 175, 114, 0.2);
+      color: rgba(245, 240, 232, 0.6);
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 400;
+    }
+    .filter-btn.active {
+      background: #D4AF72;
+      color: #07111F;
+      border-color: #D4AF72;
+    }
+    .filter-btn:hover {
+      border-color: #D4AF72;
+      color: #F5F0E8;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .dest-card {
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 114, 0.08);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+      position: relative;
+      transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+    }
+    .dest-card:hover {
+      transform: translateY(-10px) perspective(800px) rotateX(1deg) rotateY(1deg);
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8);
+      border-color: rgba(212, 175, 114, 0.3);
+    }
+    .dest-card-img {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    .dest-card-img img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .dest-card:hover .dest-card-img img {
+      transform: scale(1.08);
+    }
+    .dest-card-img .overlay-gold {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, #07111F, transparent);
+    }
+    .dest-card-body {
+      padding: 1.5rem 1.5rem 2rem;
+    }
+    .dest-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .dest-card-body .country {
+      color: #D4AF72;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+    .dest-card-body .desc {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.6);
+      margin: 0.5rem 0 1rem;
+    }
+    .dest-card-body .price {
+      font-weight: 600;
+      color: #F5F0E8;
+    }
+    .dest-card-body .price span {
+      color: #D4AF72;
+    }
+    .dest-card-body .explore-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #D4AF72;
+      font-weight: 500;
+      margin-top: 1rem;
+      transition: gap 0.3s;
+    }
+    .dest-card-body .explore-link i {
+      transition: transform 0.3s;
+    }
+    .dest-card:hover .explore-link i {
+      transform: translateX(6px);
+    }
+    /* ---------- FEATURED JOURNEY ---------- */
+    .featured-journey {
+      padding: 5rem 0;
+      background: #07111F;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .split-image {
+      height: 450px;
+      background: url('https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover;
+      border-radius: 20px;
+      transition: transform 0.5s;
+    }
+    .split-image:hover {
+      transform: scale(1.01);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat-item {
+      border-left: 2px solid #D4AF72;
+      padding-left: 1rem;
+    }
+    .stat-item .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #F5F0E8;
+    }
+    .stat-item .label {
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.5);
+      letter-spacing: 1px;
+    }
+    /* ---------- EXPERIENCES ---------- */
+    .experiences {
+      padding: 5rem 0;
+      background: #0D1B2A;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .exp-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 114, 0.06);
+      transition: all 0.4s;
+    }
+    .exp-card:hover {
+      transform: translateY(-8px);
+      border-color: #D4AF72;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.6);
+    }
+    .exp-card i {
+      font-size: 2.8rem;
+      color: #D4AF72;
+      margin-bottom: 1rem;
+    }
+    .exp-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .exp-card p {
+      color: rgba(245, 240, 232, 0.6);
+      font-size: 0.9rem;
+    }
+    /* ---------- PLANNER ---------- */
+    .planner {
+      padding: 5rem 0;
+      background: #07111F;
+    }
+    .planner-box {
+      max-width: 700px;
+      margin: 2rem auto 0;
+      padding: 2.5rem;
+    }
+    .planner-step {
+      display: block;
+    }
+    .planner-step.hidden {
+      display: none;
+    }
+    .planner-step h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+    .planner-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .planner-options button {
+      background: transparent;
+      border: 1px solid rgba(212, 175, 114, 0.2);
+      color: #F5F0E8;
+      padding: 0.5rem 1.6rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+    }
+    .planner-options button.active {
+      background: #D4AF72;
+      color: #07111F;
+      border-color: #D4AF72;
+    }
+    .planner-options button:hover {
+      border-color: #D4AF72;
+    }
+    #budgetSlider {
+      width: 100%;
+      accent-color: #D4AF72;
+      background: #0D1B2A;
+      height: 4px;
+      border-radius: 10px;
+    }
+    #budgetVal {
+      color: #D4AF72;
+      font-weight: 600;
+    }
+    .planner-result {
+      background: rgba(212, 175, 114, 0.05);
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin-top: 1.5rem;
+      border: 1px solid rgba(212, 175, 114, 0.15);
+    }
+    /* ---------- TESTIMONIALS ---------- */
+    .testimonials {
+      padding: 5rem 0;
+      background: #0D1B2A;
+    }
+    .testimonial-slider {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .testimonial-item {
+      display: none;
+      padding: 2rem 1rem;
+    }
+    .testimonial-item.active {
+      display: block;
+    }
+    .testimonial-item blockquote {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #F5F0E8;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-item .author {
+      color: #D4AF72;
+      font-weight: 500;
+    }
+    .testimonial-item .loc {
+      color: rgba(245, 240, 232, 0.4);
+      font-size: 0.8rem;
+    }
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(212, 175, 114, 0.2);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .dot.active {
+      background: #D4AF72;
+      width: 28px;
+      border-radius: 20px;
+    }
+    .testimonial-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .testimonial-controls button {
+      background: transparent;
+      border: 1px solid rgba(212, 175, 114, 0.2);
+      color: #F5F0E8;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    /* ---------- CTA ---------- */
+    .cta-section {
+      padding: 6rem 0;
+      background: url('https://images.pexels.com/photos/2156881/pexels-photo-2156881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover fixed;
+      position: relative;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      top:0;left:0;width:100%;height:100%;
+      background: rgba(7,17,31,0.7);
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: #07111F;
+      padding: 4rem 0 1.5rem;
+      border-top: 1px solid rgba(212, 175, 114, 0.05);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .footer-col h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #D4AF72;
+    }
+    .footer-col a, .footer-col p {
+      color: rgba(245, 240, 232, 0.5);
+      font-size: 0.9rem;
+      line-height: 2;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover {
+      color: #F5F0E8;
+    }
+    .newsletter input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212, 175, 114, 0.15);
+      padding: 0.7rem 1.2rem;
+      border-radius: 40px;
+      color: #F5F0E8;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+    .newsletter button {
+      width: 100%;
+    }
+    .socials {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .socials i {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 232, 0.4);
+      transition: color 0.3s;
+    }
+    .socials i:hover {
+      color: #D4AF72;
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.2);
+      border-top: 1px solid rgba(212, 175, 114, 0.05);
+      padding-top: 2rem;
+    }
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1024px) {
+      .split { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-right .btn-primary { display: none; }
+      .hamburger { display: flex; }
+      .hero h1 { font-size: 3.2rem; }
+      .card-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .planner-box { padding: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.8rem; }
+    }
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* back to top */
+    #backTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #D4AF72;
+      color: #07111F;
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 999;
+      box-shadow: 0 10px 30px -8px rgba(0,0,0,0.5);
+    }
+    #backTop.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- MOBILE OVERLAY -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="close-btn" id="closeMobile">&times;</div>
+    <a href="#">Discover</a>
+    <a href="#destinations">Destinations</a>
+    <a href="#experiences">Experiences</a>
+    <a href="#journey">Journeys</a>
+    <a href="#">About</a>
+  </div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="logo">Maira<span>Escapes</span></div>
+    <div class="nav-links">
+      <a href="#">Discover</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#experiences">Experiences</a>
+      <a href="#journey">Journeys</a>
+      <a href="#">About</a>
+    </div>
+    <div class="nav-right">
+      <i class="fas fa-search" id="searchIcon"></i>
+      <a href="#" class="btn-primary" style="padding:0.5rem 1.6rem; font-size:0.8rem;">Plan Your Journey</a>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="hero-eyebrow">CURATED LUXURY JOURNEYS</div>
+      <h1>The World,<br /><i>Beautifully Yours.</i></h1>
+      <p>Discover extraordinary destinations, private escapes, and unforgettable experiences crafted for the way you want to travel.</p>
+      <div class="hero-btns">
+        <a href="#destinations" class="btn-primary">Explore Destinations</a>
+        <a href="#" class="btn-secondary">Plan My Journey</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      SCROLL TO EXPLORE
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section class="destinations" id="destinations">
+    <div class="container">
+      <div class="dest-header">
+        <div>
+          <div class="section-label">DISCOVER</div>
+          <h2 class="section-title">Where Will You Go Next?</h2>
+          <p class="section-sub">Handpicked destinations for extraordinary escapes.</p>
+        </div>
+        <div class="filter-group" id="filterGroup">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="beach">Beach</button>
+          <button class="filter-btn" data-filter="mountains">Mountains</button>
+          <button class="filter-btn" data-filter="cities">Cities</button>
+          <button class="filter-btn" data-filter="culture">Culture</button>
+          <button class="filter-btn" data-filter="luxury">Luxury</button>
+        </div>
+      </div>
+      <div class="card-grid" id="destGrid"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED JOURNEY -->
+  <section class="featured-journey" id="journey">
+    <div class="container">
+      <div class="split">
+        <div class="split-image"></div>
+        <div>
+          <div class="section-label">THE MairaEscapes EDIT</div>
+          <h2 class="section-title">Journeys Worth Remembering.</h2>
+          <p style="color:rgba(245,240,232,0.7); font-weight:300;">VOYAGE creates carefully curated experiences, blending luxury with authenticity. Every detail is designed to inspire.</p>
+          <div class="stats" id="stats">
+            <div class="stat-item"><div class="num" data-count="48">0</div><div class="label">Countries</div></div>
+            <div class="stat-item"><div class="num" data-count="120">0</div><div class="label">Curated Experiences</div></div>
+            <div class="stat-item"><div class="num" data-count="15">0</div><div class="label">Happy Travelers (K+)</div></div>
+            <div class="stat-item"><div class="num" data-count="4.9">0</div><div class="label">Traveler Rating</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCES -->
+  <section class="experiences" id="experiences">
+    <div class="container">
+      <div class="section-label">ELEVATE</div>
+      <h2 class="section-title">Travel, Elevated.</h2>
+      <div class="exp-grid">
+        <div class="exp-card"><i class="fas fa-lock"></i><h4>Private Escapes</h4><p>Private villas, secluded islands &amp; hidden retreats.</p></div>
+        <div class="exp-card"><i class="fas fa-utensils"></i><h4>Culinary Journeys</h4><p>Michelin experiences, local cuisine &amp; private dining.</p></div>
+        <div class="exp-card"><i class="fas fa-helicopter"></i><h4>Adventure</h4><p>Helicopter tours, alpine expeditions &amp; ocean adventures.</p></div>
+        <div class="exp-card"><i class="fas fa-spa"></i><h4>Wellness</h4><p>Luxury spas, retreats &amp; restorative escapes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY PLANNER -->
+  <section class="planner" id="planner">
+    <div class="container">
+      <div class="section-label">DESIGN</div>
+      <h2 class="section-title">Let's Design Your Journey.</h2>
+      <div class="planner-box glass">
+        <div id="plannerUI">
+          <!-- steps injected by js -->
+        </div>
+        <div id="plannerResult" class="planner-result" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-label">TESTIMONIALS</div>
+      <h2 class="section-title" style="text-align:center;">Stories From the Road.</h2>
+      <div class="testimonial-slider" id="testimonialSlider">
+        <div class="testimonial-item active">
+          <blockquote>“VOYAGE transformed our anniversary trip into an experience we will never forget.”</blockquote>
+          <div class="author">— James &amp; Clara</div>
+          <div class="loc">Amalfi Coast</div>
+        </div>
+        <div class="testimonial-item">
+          <blockquote>“Every detail felt effortless. The service, hotels and experiences were exceptional.”</blockquote>
+          <div class="author">— The Parkers</div>
+          <div class="loc">Bora Bora</div>
+        </div>
+        <div class="testimonial-item">
+          <blockquote>“It wasn't simply a vacation. It felt like our own private world.”</blockquote>
+          <div class="author">— Elena M.</div>
+          <div class="loc">Kyoto</div>
+        </div>
+        <div class="dots" id="dots"></div>
+        <div class="testimonial-controls">
+          <button id="prevTesti"><i class="fas fa-arrow-left"></i></button>
+          <button id="nextTesti"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-content container">
+      <h2 class="section-title" style="color:#F5F0E8;">Your Next Chapter Starts Somewhere Beautiful.</h2>
+      <p style="color:rgba(245,240,232,0.7); max-width:500px; margin:0 auto 2rem;">The world is waiting. Let's make your next journey unforgettable.</p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="#" class="btn-primary">Plan Your Journey</a>
+        <a href="#" class="btn-secondary">Explore the World</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h5>MairaEscapes</h5><p style="color:rgba(245,240,232,0.3); font-size:0.9rem;">Travel Beyond the Ordinary.</p></div>
+        <div class="footer-col"><h5>Explore</h5><a href="#">Destinations</a><a href="#">Experiences</a><a href="#">Journeys</a><a href="#">Travel Journal</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="#">About MairaEscapes</a><a href="#">Our Story</a><a href="#">Careers</a><a href="#">Contact</a></div>
+        <div class="footer-col"><h5>Support</h5><a href="#">FAQs</a><a href="#">Travel Guide</a><a href="#">Booking Support</a><a href="#">Privacy</a></div>
+        <div class="footer-col newsletter">
+          <h5>Get Inspired</h5>
+          <p style="color:rgba(245,240,232,0.4); font-size:0.8rem;">Subscribe for exclusive journeys</p>
+          <input type="email" placeholder="Your email address" id="newsletterEmail" />
+          <button class="btn-primary" id="newsletterBtn" style="padding:0.6rem; font-size:0.8rem;">Subscribe</button>
+          <div class="socials"><i class="fab fa-instagram"></i><i class="fab fa-facebook"></i><i class="fab fa-pinterest"></i><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 MairaEscapes. Build by Maira.</div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    (function() {
+      // ---------- DATA ----------
+      const destinations = [
+        { name: 'Amalfi Coast', country: 'Italy', desc: 'Dramatic cliffs & azure waters.', price: 'from $3,200', img: 'images/amal1.jpg', category: ['beach','culture','luxury'] },
+        { name: 'Bora Bora', country: 'French Polynesia', desc: 'Overwater bungalows & turquoise lagoon.', price: 'from $4,500', img: 'images/bora1.jpg', category: ['beach','luxury'] },
+        { name: 'Kyoto', country: 'Japan', desc: 'Temples, gardens & ancient traditions.', price: 'from $2,800', img: 'images/kyo1.jpg', category: ['culture','cities'] },
+        { name: 'Santorini', country: 'Greece', desc: 'Whitewashed views & sunset magic.', price: 'from $2,900', img: 'images/sant1.jpg', category: ['beach','luxury'] },
+        { name: 'Swiss Alps', country: 'Switzerland', desc: 'Peak experiences & alpine luxury.', price: 'from $3,800', img: 'images/swit1.jpg', category: ['mountains','adventure','luxury'] },
+        { name: 'Dubai', country: 'UAE', desc: 'Modern opulence & desert adventures.', price: 'from $4,200', img: 'images/dubai1.jpg', category: ['cities','luxury','adventure'] }
+      ];
+
+      // ---------- RENDER DESTINATIONS ----------
+      const grid = document.getElementById('destGrid');
+      function renderDestinations(filter = 'all') {
+        const filtered = filter === 'all' ? destinations : destinations.filter(d => d.category.includes(filter));
+        grid.innerHTML = filtered.map(d => `
+          <div class="dest-card">
+            <div class="dest-card-img"><img src="${d.img}" alt="${d.name}" loading="lazy" /><div class="overlay-gold"></div></div>
+            <div class="dest-card-body">
+              <div class="country">${d.country}</div>
+              <h3>${d.name}</h3>
+              <p class="desc">${d.desc}</p>
+              <div class="price"><span>${d.price}</span></div>
+              <a href="#" class="explore-link">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        `).join('');
+      }
+      renderDestinations();
+
+      // filter
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          renderDestinations(this.dataset.filter);
+        });
+      });
+
+      // ---------- SEARCH OVERLAY (simple) ----------
+      const searchIcon = document.getElementById('searchIcon');
+      searchIcon.addEventListener('click', function() {
+        const query = prompt('Search destinations, experiences...');
+        if (query && query.trim()) {
+          const q = query.trim().toLowerCase();
+          const matched = destinations.filter(d => d.name.toLowerCase().includes(q) || d.country.toLowerCase().includes(q));
+          if (matched.length) {
+            renderDestinations('all');
+            // highlight: just filter in memory
+            const cards = document.querySelectorAll('.dest-card');
+            cards.forEach((card, idx) => {
+              const data = destinations[idx];
+              if (!data) return;
+              const match = data.name.toLowerCase().includes(q) || data.country.toLowerCase().includes(q);
+              card.style.display = match ? '' : 'none';
+            });
+          } else {
+            alert('No destinations found. Try again.');
+          }
+        }
+      });
+
+      // ---------- MOBILE MENU ----------
+      const hamburger = document.getElementById('hamburger');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const closeMobile = document.getElementById('closeMobile');
+      hamburger.addEventListener('click', () => mobileOverlay.classList.add('open'));
+      closeMobile.addEventListener('click', () => mobileOverlay.classList.remove('open'));
+      mobileOverlay.addEventListener('click', (e) => { if(e.target === mobileOverlay) mobileOverlay.classList.remove('open'); });
+
+      // ---------- SCROLL HEADER ----------
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 80);
+        document.getElementById('backTop').classList.toggle('show', window.scrollY > 500);
+      });
+
+      // ---------- PARALLAX HERO ----------
+      const heroBg = document.getElementById('heroBg');
+      const heroContent = document.getElementById('heroContent');
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 12;
+        const y = (e.clientY / window.innerHeight - 0.5) * 12;
+        heroBg.style.transform = `scale(1.1) translate(${x * 0.2}px, ${y * 0.2}px)`;
+        heroContent.style.transform = `translate(${x * -0.3}px, ${y * -0.3}px)`;
+      });
+
+      // ---------- SCROLL REVEAL (Intersection Observer) ----------
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.dest-card, .exp-card, .split-image, .stat-item, .planner-box, .testimonial-item').forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+      // force visible for some
+      setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 200);
+
+      // ---------- COUNTER ANIMATION ----------
+      const counters = document.querySelectorAll('.stat-item .num');
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseFloat(el.dataset.count);
+            const isFloat = target % 1 !== 0;
+            let current = 0;
+            const step = target / 40;
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= target) { current = target; clearInterval(interval); }
+              el.textContent = isFloat ? current.toFixed(1) : Math.floor(current) + (target > 100 ? '' : '');
+            }, 30);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => counterObserver.observe(c));
+
+      // ---------- TESTIMONIAL SLIDER ----------
+      const items = document.querySelectorAll('.testimonial-item');
+      const dotsContainer = document.getElementById('dots');
+      let currentIndex = 0;
+      let autoSlide;
+
+      function showTesti(index) {
+        items.forEach((item, i) => item.classList.toggle('active', i === index));
+        document.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('active', i === index));
+        currentIndex = index;
+      }
+
+      function initDots() {
+        items.forEach((_, i) => {
+          const dot = document.createElement('span');
+          dot.className = 'dot' + (i === 0 ? ' active' : '');
+          dot.dataset.index = i;
+          dot.addEventListener('click', () => { showTesti(i); resetAuto(); });
+          dotsContainer.appendChild(dot);
+        });
+      }
+      initDots();
+
+      document.getElementById('nextTesti').addEventListener('click', () => { showTesti((currentIndex + 1) % items.length); resetAuto(); });
+      document.getElementById('prevTesti').addEventListener('click', () => { showTesti((currentIndex - 1 + items.length) % items.length); resetAuto(); });
+
+      function resetAuto() { clearInterval(autoSlide); autoSlide = setInterval(() => showTesti((currentIndex + 1) % items.length), 5000); }
+      resetAuto();
+
+      // ---------- JOURNEY PLANNER ----------
+      const plannerUI = document.getElementById('plannerUI');
+      const plannerResult = document.getElementById('plannerResult');
+      let plannerData = { region: '', type: '', duration: '', budget: 5000 };
+      let step = 0;
+
+      const steps = [
+        { question: 'Where would you like to go?', options: ['Europe','Asia','Middle East','Americas','Africa','Oceania'], key: 'region' },
+        { question: 'What kind of escape?', options: ['Relaxation','Adventure','Romance','Culture','Family','Luxury'], key: 'type' },
+        { question: 'How long?', options: ['Weekend','5–7 Days','1–2 Weeks','2+ Weeks'], key: 'duration' }
+      ];
+
+      function renderPlanner() {
+        if (step < steps.length) {
+          const s = steps[step];
+          let html = `<div class="planner-step"><h4>${s.question}</h4><div class="planner-options">`;
+          s.options.forEach(opt => {
+            html += `<button data-value="${opt}" class="${plannerData[s.key] === opt ? 'active' : ''}">${opt}</button>`;
+          });
+          html += `</div><button class="btn-primary" id="plannerNext">Next</button></div>`;
+          plannerUI.innerHTML = html;
+          // event listeners
+          document.querySelectorAll('.planner-options button').forEach(btn => {
+            btn.addEventListener('click', function() {
+              document.querySelectorAll('.planner-options button').forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+              plannerData[steps[step].key] = this.dataset.value;
+            });
+          });
+          document.getElementById('plannerNext').addEventListener('click', () => {
+            if (!plannerData[steps[step].key]) { alert('Please select an option.'); return; }
+            step++;
+            if (step === steps.length) renderBudgetStep();
+            else renderPlanner();
+          });
+        }
+      }
+
+      function renderBudgetStep() {
+        let html = `<div class="planner-step"><h4>Estimated Budget</h4>
+          <input type="range" id="budgetSlider" min="2000" max="20000" step="500" value="${plannerData.budget}" />
+          <p style="margin:0.5rem 0;">Budget: $<span id="budgetVal">${plannerData.budget}</span></p>
+          <button class="btn-primary" id="plannerFinish">Show my journey</button></div>`;
+        plannerUI.innerHTML = html;
+        const slider = document.getElementById('budgetSlider');
+        const valSpan = document.getElementById('budgetVal');
+        slider.addEventListener('input', () => { plannerData.budget = parseInt(slider.value); valSpan.textContent = plannerData.budget; });
+        document.getElementById('plannerFinish').addEventListener('click', showResult);
+      }
+
+      function showResult() {
+        const regions = { 'Europe':'Mediterranean Luxury Escape','Asia':'Exotic Eastern Retreat','Middle East':'Desert Oasis','Americas':'Americas Grand Tour','Africa':'Safari & Serenity','Oceania':'Pacific Paradise' };
+        const rec = regions[plannerData.region] || 'Luxury Escape';
+        plannerResult.style.display = 'block';
+        plannerResult.innerHTML = `<h4>Your perfect VOYAGE: ${rec}</h4>
+          <p>Destination: ${plannerData.region || 'TBD'} · Type: ${plannerData.type || 'Luxury'} · Duration: ${plannerData.duration || '5–7 Days'} · Budget: $${plannerData.budget}</p>
+          <a href="#" class="btn-primary" style="margin-top:0.8rem;">Plan this journey</a>`;
+        plannerUI.innerHTML = '';
+      }
+
+      renderPlanner();
+
+      // ---------- NEWSLETTER ----------
+      document.getElementById('newsletterBtn').addEventListener('click', function() {
+        const email = document.getElementById('newsletterEmail').value.trim();
+        if (email && email.includes('@')) alert('Thank you for subscribing!');
+        else alert('Please enter a valid email.');
+      });
+
+      // ---------- BACK TO TOP ----------
+      document.getElementById('backTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // ---------- CURSOR (desktop only) ----------
+      if (!('ontouchstart' in window)) {
+        const cursor = document.createElement('div');
+        cursor.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;border-radius:50%;background:rgba(212,175,114,0.15);border:1px solid rgba(212,175,114,0.3);width:32px;height:32px;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,background 0.2s;';
+        document.body.appendChild(cursor);
+        document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+        document.querySelectorAll('button, a, .dest-card, .exp-card').forEach(el => {
+          el.addEventListener('mouseenter', () => { cursor.style.width = '56px'; cursor.style.height = '56px'; cursor.style.background = 'rgba(212,175,114,0.05)'; });
+          el.addEventListener('mouseleave', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; cursor.style.background = 'rgba(212,175,114,0.15)'; });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
